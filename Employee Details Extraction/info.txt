@@ -1,0 +1,5 @@
+Users type an employee's name and click the "Search" button.
+The script fetches the data from employees.csv file. 
+The scan CSV function processes the CSV file and converts it into an array of objects.
+The script searches for the employee name (case-insensitive match). 
+The employee's details are shown.
