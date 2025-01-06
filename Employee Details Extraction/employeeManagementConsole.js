@@ -1,25 +1,42 @@
 const readline = require('readline');
+const fs = require('fs');
 
-let csvData = `
-ID,Name,Department,Salary
-1,John Doe,Engineering,50000
-2,Jane Smith,Marketing,45000
-3,Bob Johnson,Sales,48000`;
+// let csvData = `
+// ID,Name,Department,Salary
+// 1,John Doe,Engineering,50000
+// 2,Jane Smith,Marketing,45000
+// 3,Bob Johnson,Sales,48000`;
+
+// let csvData = `
+//    ID,Name,Department,Salary
+// 1,John Doe,Engineering,50000
+// 2,Jane Smith,Marketing,45000
+// 3,Bob Johnson,Sales,48000`;
+
+
+const filePath = './employees.csv';
 
 function parseCSV(data) {
     let rows = data.trim().split("\n");
     let headers = rows[0].split(",");
+    
     return rows.slice(1).map(row => {
         let values = row.split(",");
         let obj = {};
-        headers.forEach((header, index) => {
+        headers.forEach((header, index) => { 
             obj[header] = values[index];
         });
         return obj;
     });
 }
 
-let employeeData = parseCSV(csvData);
+function convertToCSV(data) {
+    let headers = Object.keys(data[0]).join(",");
+    let rows = data.map(row => Object.values(row).join(","));
+    return [headers, ...rows].join("\n");
+}
+
+let employeeData = parseCSV(fs.readFileSync(filePath, "utf8"));
 
 function displayEmployees() {
     console.log("\nEmployee List:");
@@ -42,6 +59,7 @@ function searchEmployee(name) {
 function addEmployee(name, department, salary) {
     let newId = employeeData.length + 1;
     employeeData.push({ ID: newId.toString(), Name: name, Department: department, Salary: salary });
+    fs.writeFileSync(filePath, convertToCSV(employeeData), "utf8");
     console.log("Employee added successfully!");
 }
 
@@ -49,6 +67,7 @@ function deleteEmployee(name) {
     let index = employeeData.findIndex(employee => employee.Name.toLowerCase() === name.toLowerCase());
     if (index !== -1) {
         employeeData.splice(index, 1);
+        fs.writeFileSync(filePath, convertToCSV(employeeData), "utf8");
         console.log("Employee deleted successfully!");
     } else {
         console.log("Employee not found.");
@@ -60,6 +79,7 @@ function editEmployee(newName, newDepartment, newSalary) {
     if (employee) {
         employee.Department = newDepartment;
         employee.Salary = newSalary;
+        fs.writeFileSync(filePath, convertToCSV(employeeData), "utf8");
         console.log("Employee details updated successfully!");
     } else {
         console.log("Employee not found.");
@@ -115,12 +135,12 @@ function showMenu() {
                 showMenu();
             });
         } else if (choice === '5') {
-            rl.question("Enter name, new department, new salary (using commas): ", (input) => {
+            rl.question("Enter name, new department, new salary (comma-separated): ", (input) => {
                 let [name, newDepartment, newSalary] = input.split(",");
                 if (name) {
                     editEmployee(name.trim(), newDepartment?.trim(), newSalary?.trim());
                 } else {
-                    console.log("give Name");
+                    console.log("Invalid");
                 }
                 showMenu();
             });
@@ -132,6 +152,5 @@ function showMenu() {
         }
     });
 }
-
 
 showMenu();

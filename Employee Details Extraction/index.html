@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Management</h1>
+        <button id="addEmployeeBtn">Add Employee</button>
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Salary</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Hello</td></tr>
+                <tr><td>Hello</td></tr>
+                <tr><td>Hello</td></tr>
+                <tr><td>Hello</td></tr>
+                <tr><td>Hello</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="employeePopup" class="popup">
+        <div class="popup-content">
+            <span id="closePopup">&times;</span>
+            <form id="employeeForm">
+                <input type="hidden" id="employeeId">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+                <label for="department">Department:</label>
+                <input type="text" id="department" required>
+                <label for="salary">Salary:</label>
+                <input type="number" id="salary" required>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="employeeManagement.js"></script>
+</body>
+</html>
