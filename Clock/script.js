@@ -32,7 +32,7 @@ function drawClock(remainingTime, totalTime) {
     );
     ctx.lineWidth = 6;
     ctx.strokeStyle = '#ff6347';
-    ctx.stroke();
+    ctx.stroke(); 
 
     ctx.beginPath();
     ctx.arc(centerX, centerY, 8, 0, 2 * Math.PI);

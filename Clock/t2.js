@@ -11,7 +11,7 @@ function startTimer(timeOutInSec) {
             if (timeLeftInSec <= 0) {
                 console.log("Time's up!");
                 clearInterval(timerId);
-                // 
+                
                 resolve(timeOutInSec);
                 return;
             }
